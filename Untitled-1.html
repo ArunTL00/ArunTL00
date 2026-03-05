@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARUN TL WEB - 118 तत्व</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        .element-card {
+            transition: all 0.3s ease;
+        }
+        .element-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+        .modal-content {
+            animation: modalPop 0.4s ease;
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-slate-200 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <div class="inline-flex items-center gap-3 mb-4">
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-400 rounded-2xl flex items-center justify-center text-4xl shadow-xl">⚛️</div>
+                <h1 class="text-6xl font-bold tracking-tighter text-white">ARUN TL WEB</h1>
+            </div>
+            <p class="text-4xl font-medium text-blue-400">118 तत्वों का पूरा ज्ञान केंद्र</p>
+            <div class="h-1 w-48 mx-auto bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 rounded-full mt-6"></div>
+        </header>
+
+        <!-- Introduction -->
+        <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-10 mb-12 text-center">
+            <h2 class="text-3xl font-semibold mb-6 text-white">नमस्ते STUDENT! 👋 Arun TL Web में आपका स्वागत है</h2>
+            <p class="max-w-3xl mx-auto text-lg leading-relaxed text-slate-300">
+                यह वेबसाइट खास <strong>STUDENT</strong> के लिए बनाई गई है।<br>
+                यहाँ रसायन विज्ञान के सभी <strong>118 तत्व</strong> की पूरी जानकारी एक क्लिक में मिलेगी।<br>
+                हर तत्व का नाम हिंदी और English दोनों में दिखेगा + उपयोग भी दोनों भाषाओं में।
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10 max-w-4xl mx-auto">
+                <div class="bg-zinc-800 rounded-2xl p-6 text-center">
+                    <div class="text-5xl mb-3">🔢</div>
+                    <p class="font-medium">परमाणु संख्या</p>
+                </div>
+                <div class="bg-zinc-800 rounded-2xl p-6 text-center">
+                    <div class="text-5xl mb-3">📛</div>
+                    <p class="font-medium">प्रतीक</p>
+                </div>
+                <div class="bg-zinc-800 rounded-2xl p-6 text-center">
+                    <div class="text-5xl mb-3">🖼️</div>
+                    <p class="font-medium">बड़ी इमेज</p>
+                </div>
+                <div class="bg-zinc-800 rounded-2xl p-6 text-center">
+                    <div class="text-5xl mb-3">📖</div>
+                    <p class="font-medium">उपयोग व उदाहरण (हिंदी + English)</p>
+                </div>
+            </div>
+            <p class="mt-10 text-slate-400">किसी भी तत्व पर क्लिक करें → पूरा विवरण (मोडल) खुल जाएगा!<br>सर्च बार में हिंदी या English नाम टाइप करके भी खोज सकते हो।</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="relative max-w-xl mx-auto mb-12">
+            <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 text-xl"></i>
+            <input 
+                id="searchInput"
+                type="text" 
+                placeholder="तत्व का नाम, प्रतीक या संख्या सर्च करें... (जैसे ऑक्सीजन, O, 8)"
+                class="w-full bg-zinc-900 border border-zinc-700 focus:border-blue-500 rounded-3xl py-6 pl-16 pr-8 text-lg outline-none text-white placeholder-slate-500">
+        </div>
+
+        <!-- Elements List -->
+        <div id="elementsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- JS से भरेगा -->
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-20 py-10 border-t border-zinc-800">
+            <p class="text-slate-500">Made with ❤️ for <span class="text-blue-400 font-medium">Arun TL</span> • Powered by Grok • 2026</p>
+            <p class="text-xs text-slate-600 mt-2">पूर्ण 118 तत्व • सभी डिटेल्स के साथ</p>
+        </footer>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
+        <div class="bg-zinc-900 border border-zinc-700 rounded-3xl max-w-5xl w-full max-h-[95vh] overflow-hidden flex flex-col">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center border-b border-zinc-700 px-8 py-5">
+                <div class="flex items-center gap-3">
+                    <span class="text-blue-400 text-2xl">⚛️</span>
+                    <span class="font-medium text-xl">ARUN TL WEB • तत्व का पूरा विवरण</span>
+                </div>
+                <button onclick="closeModal()" 
+                        class="text-4xl text-slate-400 hover:text-white transition-colors">×</button>
+            </div>
+            
+            <!-- Modal Content -->
+            <div id="modalContent" class="flex-1 overflow-auto p-8 modal-content">
+                <!-- JS द्वारा भरा जाएगा -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== COMPLETE 118 ELEMENTS DATA ====================
+        const elementsData = [
+            { number: 1, symbol: "H", nameEn: "Hydrogen", nameHi: "हाइड्रोजन", atomicMass: "1.008", category: "Nonmetal", group: 1, period: 1, uses: "बैलून भरने, रॉकेट ईंधन, अमोनिया बनाने में उपयोग। / Used in balloons, rocket fuel, ammonia production.", config: "1s¹" },
+            { number: 2, symbol: "He", nameEn: "Helium", nameHi: "हीलियम", atomicMass: "4.0026", category: "Noble Gas", group: 18, period: 1, uses: "पार्टी बैलून, वेल्डिंग, क्रायोजेनिक्स में। / Used in party balloons, welding, cryogenics.", config: "1s²" },
+            { number: 3, symbol: "Li", nameEn: "Lithium", nameHi: "लिथियम", atomicMass: "6.94", category: "Alkali Metal", group: 1, period: 2, uses: "बैटरी, दवाइयाँ (बाइपोलर डिसऑर्डर), ग्रीस में। / Used in batteries, medicines, grease.", config: "[He] 2s¹" },
+            { number: 4, symbol: "Be", nameEn: "Beryllium", nameHi: "बेरिलियम", atomicMass: "9.012", category: "Alkaline Earth Metal", group: 2, period: 2, uses: "एयरोस्पेस मिश्रधातु, एक्स-रे विंडो में। / Used in aerospace alloys, X-ray windows.", config: "[He] 2s²" },
+            { number: 5, symbol: "B", nameEn: "Boron", nameHi: "बोरॉन", atomicMass: "10.81", category: "Metalloid", group: 13, period: 2, uses: "कांच, सिरेमिक, कीटनाशक में। / Used in glass, ceramics, pesticides.", config: "[He] 2s² 2p¹" },
+            { number: 6, symbol: "C", nameEn: "Carbon", nameHi: "कार्बन", atomicMass: "12.011", category: "Nonmetal", group: 14, period: 2, uses: "जीवन का आधार, डायमंड, ग्रेफाइट, ईंधन में। / Basis of life, diamond, graphite, fuel.", config: "[He] 2s² 2p²" },
+            { number: 7, symbol: "N", nameEn: "Nitrogen", nameHi: "नाइट्रोजन", atomicMass: "14.007", category: "Nonmetal", group: 15, period: 2, uses: "उर्वरक, विस्फोटक, DNA/प्रोटीन में। / Used in fertilizers, explosives, DNA/proteins.", config: "[He] 2s² 2p³" },
+            { number: 8, symbol: "O", nameEn: "Oxygen", nameHi: "ऑक्सीजन", atomicMass: "15.999", category: "Nonmetal", group: 16, period: 2, uses: "सांस लेने, जंग, वेल्डिंग, रॉकेट में। / Essential for breathing, rusting, welding, rockets.", config: "[He] 2s² 2p⁴" },
+            { number: 9, symbol: "F", nameEn: "Fluorine", nameHi: "फ्लोरीन", atomicMass: "18.998", category: "Halogen", group: 17, period: 2, uses: "टूथपेस्ट, फ्रिज गैस, यूरेनियम शुद्धिकरण में। / Used in toothpaste, refrigerants, uranium enrichment.", config: "[He] 2s² 2p⁵" },
+            { number: 10, symbol: "Ne", nameEn: "Neon", nameHi: "नियॉन", atomicMass: "20.180", category: "Noble Gas", group: 18, period: 2, uses: "नियोन साइन बोर्ड, लेजर, टीवी में। / Used in neon signs, lasers, TVs.", config: "[He] 2s² 2p⁶" },
+            { number: 11, symbol: "Na", nameEn: "Sodium", nameHi: "सोडियम", atomicMass: "22.990", category: "Alkali Metal", group: 1, period: 3, uses: "नमक, साबुन, स्ट्रीट लाइट में। / Used in salt, soap, street lights.", config: "[Ne] 3s¹" },
+            { number: 12, symbol: "Mg", nameEn: "Magnesium", nameHi: "मैग्नीशियम", atomicMass: "24.305", category: "Alkaline Earth Metal", group: 2, period: 3, uses: "फायरवर्क, हल्के मिश्रधातु, क्लोरोफिल में। / Used in fireworks, light alloys, chlorophyll.", config: "[Ne] 3s²" },
+            { number: 13, symbol: "Al", nameEn: "Aluminium", nameHi: "एल्यूमिनियम", atomicMass: "26.982", category: "Post-transition Metal", group: 13, period: 3, uses: "एयरक्राफ्ट, डिब्बे, फॉइल, तार में। / Used in aircraft, cans, foil, wires.", config: "[Ne] 3s² 3p¹" },
+            { number: 14, symbol: "Si", nameEn: "Silicon", nameHi: "सिलिकॉन", atomicMass: "28.085", category: "Metalloid", group: 14, period: 3, uses: "कंप्यूटर चिप, सोलर पैनल, कांच में। / Used in computer chips, solar panels, glass.", config: "[Ne] 3s² 3p²" },
+            { number: 15, symbol: "P", nameEn: "Phosphorus", nameHi: "फॉस्फोरस", atomicMass: "30.974", category: "Nonmetal", group: 15, period: 3, uses: "उर्वरक, मैच, DNA में। / Used in fertilizers, matches, DNA.", config: "[Ne] 3s² 3p³" },
+            { number: 16, symbol: "S", nameEn: "Sulfur", nameHi: "सल्फर", atomicMass: "32.06", category: "Nonmetal", group: 16, period: 3, uses: "एसिड, उर्वरक, रबर वल्कनीकरण में। / Used in acids, fertilizers, rubber vulcanization.", config: "[Ne] 3s² 3p⁴" },
+            { number: 17, symbol: "Cl", nameEn: "Chlorine", nameHi: "क्लोरीन", atomicMass: "35.45", category: "Halogen", group: 17, period: 3, uses: "पानी शुद्धिकरण, ब्लीच, PVC में। / Used in water purification, bleach, PVC.", config: "[Ne] 3s² 3p⁵" },
+            { number: 18, symbol: "Ar", nameEn: "Argon", nameHi: "आर्गन", atomicMass: "39.948", category: "Noble Gas", group: 18, period: 3, uses: "वेल्डिंग, लाइट बल्ब, क्रायोजेनिक्स में। / Used in welding, light bulbs, cryogenics.", config: "[Ne] 3s² 3p⁶" },
+            { number: 19, symbol: "K", nameEn: "Potassium", nameHi: "पोटैशियम", atomicMass: "39.098", category: "Alkali Metal", group: 1, period: 4, uses: "उर्वरक, साबुन, बैटरी में। / Used in fertilizers, soap, batteries.", config: "[Ar] 4s¹" },
+            { number: 20, symbol: "Ca", nameEn: "Calcium", nameHi: "कैल्शियम", atomicMass: "40.078", category: "Alkaline Earth Metal", group: 2, period: 4, uses: "हड्डी, सीमेंट, दूध, प्लास्टर में। / Used in bones, cement, milk, plaster.", config: "[Ar] 4s²" },
+            { number: 21, symbol: "Sc", nameEn: "Scandium", nameHi: "स्कैंडियम", atomicMass: "44.956", category: "Transition Metal", group: 3, period: 4, uses: "एयरोस्पेस मिश्रधातु, स्पोर्ट्स उपकरण में। / Used in aerospace alloys, sports equipment.", config: "[Ar] 3d¹ 4s²" },
+            { number: 22, symbol: "Ti", nameEn: "Titanium", nameHi: "टाइटेनियम", atomicMass: "47.867", category: "Transition Metal", group: 4, period: 4, uses: "एयरक्राफ्ट, मेडिकल इम्प्लांट, सफेद पेंट में। / Used in aircraft, implants, white pigment.", config: "[Ar] 3d² 4s²" },
+            { number: 23, symbol: "V", nameEn: "Vanadium", nameHi: "वैनेडियम", atomicMass: "50.942", category: "Transition Metal", group: 5, period: 4, uses: "स्टील मजबूत करने, उत्प्रेरक में। / Used in steel strengthening, catalysts.", config: "[Ar] 3d³ 4s²" },
+            { number: 24, symbol: "Cr", nameEn: "Chromium", nameHi: "क्रोमियम", atomicMass: "51.996", category: "Transition Metal", group: 6, period: 4, uses: "स्टेनलेस स्टील, क्रोम प्लेटिंग में। / Used in stainless steel, chrome plating.", config: "[Ar] 3d⁵ 4s¹" },
+            { number: 25, symbol: "Mn", nameEn: "Manganese", nameHi: "मैंगनीज", atomicMass: "54.938", category: "Transition Metal", group: 7, period: 4, uses: "स्टील, बैटरी, उर्वरक में। / Used in steel, batteries, fertilizers.", config: "[Ar] 3d⁵ 4s²" },
+            { number: 26, symbol: "Fe", nameEn: "Iron", nameHi: "आयरन / लोहा", atomicMass: "55.845", category: "Transition Metal", group: 8, period: 4, uses: "स्टील, निर्माण, हीमोग्लोबिन में। / Used in steel, construction, hemoglobin.", config: "[Ar] 3d⁶ 4s²" },
+            { number: 27, symbol: "Co", nameEn: "Cobalt", nameHi: "कोबाल्ट", atomicMass: "58.933", category: "Transition Metal", group: 9, period: 4, uses: "मैग्नेट, ब्लू पिगमेंट, बैटरी में। / Used in magnets, blue pigment, batteries.", config: "[Ar] 3d⁷ 4s²" },
+            { number: 28, symbol: "Ni", nameEn: "Nickel", nameHi: "निकल", atomicMass: "58.693", category: "Transition Metal", group: 10, period: 4, uses: "स्टेनलेस स्टील, सिक्के, बैटरी में। / Used in stainless steel, coins, batteries.", config: "[Ar] 3d⁸ 4s²" },
+            { number: 29, symbol: "Cu", nameEn: "Copper", nameHi: "कॉपर / तांबा", atomicMass: "63.546", category: "Transition Metal", group: 11, period: 4, uses: "बिजली तार, सिक्के, पाइप में। / Used in electrical wires, coins, pipes.", config: "[Ar] 3d¹⁰ 4s¹" },
+            { number: 30, symbol: "Zn", nameEn: "Zinc", nameHi: "जिंक", atomicMass: "65.38", category: "Transition Metal", group: 12, period: 4, uses: "गैल्वनाइजिंग, बैटरी, पेंट में। / Used in galvanizing, batteries, paint.", config: "[Ar] 3d¹⁰ 4s²" },
+            { number: 31, symbol: "Ga", nameEn: "Gallium", nameHi: "गैलियम", atomicMass: "69.723", category: "Post-transition Metal", group: 13, period: 4, uses: "सेमीकंडक्टर, LED, सोलर पैनल में। / Used in semiconductors, LEDs, solar panels.", config: "[Ar] 3d¹⁰ 4s² 4p¹" },
+            { number: 32, symbol: "Ge", nameEn: "Germanium", nameHi: "जर्मेनियम", atomicMass: "72.63", category: "Metalloid", group: 14, period: 4, uses: "ट्रांजिस्टर, फाइबर ऑप्टिक, इन्फ्रारेड में। / Used in transistors, fiber optics, infrared.", config: "[Ar] 3d¹⁰ 4s² 4p²" },
+            { number: 33, symbol: "As", nameEn: "Arsenic", nameHi: "आर्सेनिक", atomicMass: "74.922", category: "Metalloid", group: 15, period: 4, uses: "सेमीकंडक्टर, कीटनाशक, लकड़ी संरक्षण में। / Used in semiconductors, pesticides, wood preservative.", config: "[Ar] 3d¹⁰ 4s² 4p³" },
+            { number: 34, symbol: "Se", nameEn: "Selenium", nameHi: "सेलेनियम", atomicMass: "78.971", category: "Nonmetal", group: 16, period: 4, uses: "फोटोकॉपी मशीन, शैम्पू, सोलर सेल में। / Used in photocopy machines, shampoo, solar cells.", config: "[Ar] 3d¹⁰ 4s² 4p⁴" },
+            { number: 35, symbol: "Br", nameEn: "Bromine", nameHi: "ब्रोमीन", atomicMass: "79.904", category: "Halogen", group: 17, period: 4, uses: "जल शुद्धिकरण, फोटोग्राफी, दवाइयाँ में। / Used in water treatment, photography, medicines.", config: "[Ar] 3d¹⁰ 4s² 4p⁵" },
+            { number: 36, symbol: "Kr", nameEn: "Krypton", nameHi: "क्रिप्टन", atomicMass: "83.798", category: "Noble Gas", group: 18, period: 4, uses: "लाइट बल्ब, लेजर, फ्लैशलाइट में। / Used in light bulbs, lasers, flashlights.", config: "[Ar] 3d¹⁰ 4s² 4p⁶" },
+            { number: 37, symbol: "Rb", nameEn: "Rubidium", nameHi: "रुबिडियम", atomicMass: "85.468", category: "Alkali Metal", group: 1, period: 5, uses: "एटॉमिक क्लॉक, स्पेसक्राफ्ट में। / Used in atomic clocks, spacecraft.", config: "[Kr] 5s¹" },
+            { number: 38, symbol: "Sr", nameEn: "Strontium", nameHi: "स्ट्रॉन्शियम", atomicMass: "87.62", category: "Alkaline Earth Metal", group: 2, period: 5, uses: "फायरवर्क (लाल रंग), CRT टीवी में। / Used in fireworks (red color), CRT TVs.", config: "[Kr] 5s²" },
+            { number: 39, symbol: "Y", nameEn: "Yttrium", nameHi: "इट्रियम", atomicMass: "88.906", category: "Transition Metal", group: 3, period: 5, uses: "LED, लेजर, सुपरकंडक्टर में। / Used in LEDs, lasers, superconductors.", config: "[Kr] 4d¹ 5s²" },
+            { number: 40, symbol: "Zr", nameEn: "Zirconium", nameHi: "जिरकोनियम", atomicMass: "91.224", category: "Transition Metal", group: 4, period: 5, uses: "न्यूक्लियर रिएक्टर, सिरेमिक में। / Used in nuclear reactors, ceramics.", config: "[Kr] 4d² 5s²" },
+            { number: 41, symbol: "Nb", nameEn: "Niobium", nameHi: "नियोबियम", atomicMass: "92.906", category: "Transition Metal", group: 5, period: 5, uses: "सुपरकंडक्टर, एयरोस्पेस में। / Used in superconductors, aerospace.", config: "[Kr] 4d⁴ 5s¹" },
+            { number: 42, symbol: "Mo", nameEn: "Molybdenum", nameHi: "मोलिब्डेनम", atomicMass: "95.95", category: "Transition Metal", group: 6, period: 5, uses: "स्टील, फिलामेंट, उत्प्रेरक में। / Used in steel, filaments, catalysts.", config: "[Kr] 4d⁵ 5s¹" },
+            { number: 43, symbol: "Tc", nameEn: "Technetium", nameHi: "टेक्नीशियम", atomicMass: "98", category: "Transition Metal", group: 7, period: 5, uses: "मेडिकल इमेजिंग (रेडियोएक्टिव)। / Used in medical imaging (radioactive).", config: "[Kr] 4d⁵ 5s²" },
+            { number: 44, symbol: "Ru", nameEn: "Ruthenium", nameHi: "रुथेनियम", atomicMass: "101.07", category: "Transition Metal", group: 8, period: 5, uses: "हार्ड डिस्क, उत्प्रेरक में। / Used in hard disks, catalysts.", config: "[Kr] 4d⁷ 5s¹" },
+            { number: 45, symbol: "Rh", nameEn: "Rhodium", nameHi: "रोडियम", atomicMass: "102.91", category: "Transition Metal", group: 9, period: 5, uses: "कार एग्जॉस्ट कैटेलिस्ट, ज्वेलरी में। / Used in car exhaust catalysts, jewelry.", config: "[Kr] 4d⁸ 5s¹" },
+            { number: 46, symbol: "Pd", nameEn: "Palladium", nameHi: "पैलेडियम", atomicMass: "106.42", category: "Transition Metal", group: 10, period: 5, uses: "कार एग्जॉस्ट, इलेक्ट्रॉनिक्स, ज्वेलरी में। / Used in car exhaust, electronics, jewelry.", config: "[Kr] 4d¹⁰" },
+            { number: 47, symbol: "Ag", nameEn: "Silver", nameHi: "सिल्वर / चांदी", atomicMass: "107.87", category: "Transition Metal", group: 11, period: 5, uses: "ज्वेलरी, फोटोग्राफी, एंटीबैक्टीरियल में। / Used in jewelry, photography, antibacterial.", config: "[Kr] 4d¹⁰ 5s¹" },
+            { number: 48, symbol: "Cd", nameEn: "Cadmium", nameHi: "कैडमियम", atomicMass: "112.41", category: "Transition Metal", group: 12, period: 5, uses: "बैटरी, पिगमेंट, कोटिंग में। / Used in batteries, pigments, coatings.", config: "[Kr] 4d¹⁰ 5s²" },
+            { number: 49, symbol: "In", nameEn: "Indium", nameHi: "इंडियम", atomicMass: "114.82", category: "Post-transition Metal", group: 13, period: 5, uses: "टचस्क्रीन, सोलर पैनल, LED में। / Used in touchscreens, solar panels, LEDs.", config: "[Kr] 4d¹⁰ 5s² 5p¹" },
+            { number: 50, symbol: "Sn", nameEn: "Tin", nameHi: "टिन / कलई", atomicMass: "118.71", category: "Post-transition Metal", group: 14, period: 5, uses: "टिन कैन, सोल्डर, मिरर में। / Used in tin cans, solder, mirrors.", config: "[Kr] 4d¹⁰ 5s² 5p²" },
+            { number: 51, symbol: "Sb", nameEn: "Antimony", nameHi: "एंटीमनी / सुरमा", atomicMass: "121.76", category: "Metalloid", group: 15, period: 5, uses: "फायर रिटार्डेंट, बैटरी में। / Used in fire retardants, batteries.", config: "[Kr] 4d¹⁰ 5s² 5p³" },
+            { number: 52, symbol: "Te", nameEn: "Tellurium", nameHi: "टेल्यूरियम", atomicMass: "127.60", category: "Metalloid", group: 16, period: 5, uses: "सोलर पैनल, मेटल अलॉय में। / Used in solar panels, metal alloys.", config: "[Kr] 4d¹⁰ 5s² 5p⁴" },
+            { number: 53, symbol: "I", nameEn: "Iodine", nameHi: "आयोडीन", atomicMass: "126.90", category: "Halogen", group: 17, period: 5, uses: "दवा, फोटोग्राफी, थायरॉइड में। / Used in medicines, photography, thyroid.", config: "[Kr] 4d¹⁰ 5s² 5p⁵" },
+            { number: 54, symbol: "Xe", nameEn: "Xenon", nameHi: "जेनॉन", atomicMass: "131.29", category: "Noble Gas", group: 18, period: 5, uses: "कार हेडलाइट, प्रोजेक्टर, स्पेसक्राफ्ट में। / Used in car headlights, projectors, spacecraft.", config: "[Kr] 4d¹⁰ 5s² 5p⁶" },
+            { number: 55, symbol: "Cs", nameEn: "Caesium", nameHi: "सीज़ियम", atomicMass: "132.91", category: "Alkali Metal", group: 1, period: 6, uses: "एटॉमिक क्लॉक, फोटोइलेक्ट्रिक सेल में। / Used in atomic clocks, photoelectric cells.", config: "[Xe] 6s¹" },
+            { number: 56, symbol: "Ba", nameEn: "Barium", nameHi: "बेरियम", atomicMass: "137.33", category: "Alkaline Earth Metal", group: 2, period: 6, uses: "एक्स-रे, फायरवर्क, ड्रिलिंग में। / Used in X-rays, fireworks, drilling.", config: "[Xe] 6s²" },
+            { number: 57, symbol: "La", nameEn: "Lanthanum", nameHi: "लैंथेनम", atomicMass: "138.91", category: "Lanthanide", group: 3, period: 6, uses: "कैटेलिस्ट, बैटरी, ऑप्टिकल ग्लास में। / Used in catalysts, batteries, optical glass.", config: "[Xe] 5d¹ 6s²" },
+            { number: 58, symbol: "Ce", nameEn: "Cerium", nameHi: "सेरियम", atomicMass: "140.12", category: "Lanthanide", group: 3, period: 6, uses: "कैटेलिस्ट, सेल्फ-क्लीनिंग ओवन, ग्लास में। / Used in catalysts, self-cleaning ovens, glass.", config: "[Xe] 4f¹ 5d¹ 6s²" },
+            { number: 59, symbol: "Pr", nameEn: "Praseodymium", nameHi: "प्रेसियोडिमियम", atomicMass: "140.91", category: "Lanthanide", group: 3, period: 6, uses: "मैग्नेट, लेजर, ग्लास कलरिंग में। / Used in magnets, lasers, glass coloring.", config: "[Xe] 4f³ 6s²" },
+            { number: 60, symbol: "Nd", nameEn: "Neodymium", nameHi: "नियोडिमियम", atomicMass: "144.24", category: "Lanthanide", group: 3, period: 6, uses: "मजबूत मैग्नेट, स्पीकर, लेजर में। / Used in strong magnets, speakers, lasers.", config: "[Xe] 4f⁴ 6s²" },
+            { number: 61, symbol: "Pm", nameEn: "Promethium", nameHi: "प्रोमेथियम", atomicMass: "145", category: "Lanthanide", group: 3, period: 6, uses: "न्यूक्लियर बैटरी, लाइटिंग में। / Used in nuclear batteries, lighting.", config: "[Xe] 4f⁵ 6s²" },
+            { number: 62, symbol: "Sm", nameEn: "Samarium", nameHi: "सैमेरियम", atomicMass: "150.36", category: "Lanthanide", group: 3, period: 6, uses: "मैग्नेट, कैंसर उपचार, न्यूक्लियर में। / Used in magnets, cancer treatment, nuclear.", config: "[Xe] 4f⁶ 6s²" },
+            { number: 63, symbol: "Eu", nameEn: "Europium", nameHi: "यूरोपियम", atomicMass: "151.96", category: "Lanthanide", group: 3, period: 6, uses: "टीवी स्क्रीन (रेड कलर), लेजर में। / Used in TV screens (red color), lasers.", config: "[Xe] 4f⁷ 6s²" },
+            { number: 64, symbol: "Gd", nameEn: "Gadolinium", nameHi: "गैडोलिनियम", atomicMass: "157.25", category: "Lanthanide", group: 3, period: 6, uses: "MRI स्कैन, न्यूट्रॉन कैप्चर में। / Used in MRI scans, neutron capture.", config: "[Xe] 4f⁷ 5d¹ 6s²" },
+            { number: 65, symbol: "Tb", nameEn: "Terbium", nameHi: "टर्बियम", atomicMass: "158.93", category: "Lanthanide", group: 3, period: 6, uses: "फ्लोरोसेंट लैंप, मेमोरी डिवाइस में। / Used in fluorescent lamps, memory devices.", config: "[Xe] 4f⁹ 6s²" },
+            { number: 66, symbol: "Dy", nameEn: "Dysprosium", nameHi: "डिस्प्रोसियम", atomicMass: "162.50", category: "Lanthanide", group: 3, period: 6, uses: "मैग्नेट, लेजर, नाइट विजन में। / Used in magnets, lasers, night vision.", config: "[Xe] 4f¹⁰ 6s²" },
+            { number: 67, symbol: "Ho", nameEn: "Holmium", nameHi: "होल्मियम", atomicMass: "164.93", category: "Lanthanide", group: 3, period: 6, uses: "लेजर, मैग्नेटिक फ्लक्स में। / Used in lasers, magnetic flux.", config: "[Xe] 4f¹¹ 6s²" },
+            { number: 68, symbol: "Er", nameEn: "Erbium", nameHi: "एर्बियम", atomicMass: "167.26", category: "Lanthanide", group: 3, period: 6, uses: "फाइबर ऑप्टिक, ग्लास कलरिंग में। / Used in fiber optics, glass coloring.", config: "[Xe] 4f¹² 6s²" },
+            { number: 69, symbol: "Tm", nameEn: "Thulium", nameHi: "थ्यूलियम", atomicMass: "168.93", category: "Lanthanide", group: 3, period: 6, uses: "मेडिकल इमेजिंग, लेजर में। / Used in medical imaging, lasers.", config: "[Xe] 4f¹³ 6s²" },
+            { number: 70, symbol: "Yb", nameEn: "Ytterbium", nameHi: "इट्टरबियम", atomicMass: "173.05", category: "Lanthanide", group: 3, period: 6, uses: "एटॉमिक क्लॉक, लेजर में। / Used in atomic clocks, lasers.", config: "[Xe] 4f¹⁴ 6s²" },
+            { number: 71, symbol: "Lu", nameEn: "Lutetium", nameHi: "ल्यूटेशियम", atomicMass: "174.97", category: "Lanthanide", group: 3, period: 6, uses: "कैटेलिस्ट, मेडिकल इमेजिंग में। / Used in catalysts, medical imaging.", config: "[Xe] 4f¹⁴ 5d¹ 6s²" },
+            { number: 72, symbol: "Hf", nameEn: "Hafnium", nameHi: "हैफ्नियम", atomicMass: "178.49", category: "Transition Metal", group: 4, period: 6, uses: "न्यूक्लियर रिएक्टर, प्लाज्मा टीवी में। / Used in nuclear reactors, plasma TVs.", config: "[Xe] 4f¹⁴ 5d² 6s²" },
+            { number: 73, symbol: "Ta", nameEn: "Tantalum", nameHi: "टैंटलम", atomicMass: "180.95", category: "Transition Metal", group: 5, period: 6, uses: "कैपेसिटर, सर्जिकल इम्प्लांट में। / Used in capacitors, surgical implants.", config: "[Xe] 4f¹⁴ 5d³ 6s²" },
+            { number: 74, symbol: "W", nameEn: "Tungsten", nameHi: "टंगस्टन / वोल्फ्राम", atomicMass: "183.84", category: "Transition Metal", group: 6, period: 6, uses: "लाइट बल्ब फिलामेंट, कटर, वेल्डिंग में। / Used in light bulb filaments, cutters, welding.", config: "[Xe] 4f¹⁴ 5d⁴ 6s²" },
+            { number: 75, symbol: "Re", nameEn: "Rhenium", nameHi: "रेनियम", atomicMass: "186.21", category: "Transition Metal", group: 7, period: 6, uses: "जेट इंजन, कैटेलिस्ट में। / Used in jet engines, catalysts.", config: "[Xe] 4f¹⁴ 5d⁵ 6s²" },
+            { number: 76, symbol: "Os", nameEn: "Osmium", nameHi: "ऑस्मियम", atomicMass: "190.23", category: "Transition Metal", group: 8, period: 6, uses: "हार्डेस्ट मिश्रधातु, पेन टिप में। / Used in hardest alloys, pen tips.", config: "[Xe] 4f¹⁴ 5d⁶ 6s²" },
+            { number: 77, symbol: "Ir", nameEn: "Iridium", nameHi: "इरिडियम", atomicMass: "192.22", category: "Transition Metal", group: 9, period: 6, uses: "स्पार्क प्लग, क्रूसिबल, पेन टिप में। / Used in spark plugs, crucibles, pen tips.", config: "[Xe] 4f¹⁴ 5d⁷ 6s²" },
+            { number: 78, symbol: "Pt", nameEn: "Platinum", nameHi: "प्लैटिनम", atomicMass: "195.08", category: "Transition Metal", group: 10, period: 6, uses: "कैटेलिस्ट, ज्वेलरी, इलेक्ट्रोड में। / Used in catalysts, jewelry, electrodes.", config: "[Xe] 4f¹⁴ 5d⁹ 6s¹" },
+            { number: 79, symbol: "Au", nameEn: "Gold", nameHi: "गोल्ड / सोना", atomicMass: "196.97", category: "Transition Metal", group: 11, period: 6, uses: "ज्वेलरी, इलेक्ट्रॉनिक्स, दवा में। / Used in jewelry, electronics, medicines.", config: "[Xe] 4f¹⁴ 5d¹⁰ 6s¹" },
+            { number: 80, symbol: "Hg", nameEn: "Mercury", nameHi: "मरकरी / पारा", atomicMass: "200.59", category: "Transition Metal", group: 12, period: 6, uses: "थर्मामीटर, बैटरी, गोल्ड माइनिंग में। / Used in thermometers, batteries, gold mining.", config: "[Xe] 4f¹⁴ 5d¹⁰ 6s²" },
+            { number: 81, symbol: "Tl", nameEn: "Thallium", nameHi: "थैलियम", atomicMass: "204.38", category: "Post-transition Metal", group: 13, period: 6, uses: "इलेक्ट्रॉनिक्स, ऑप्टिकल लेंस में। / Used in electronics, optical lenses.", config: "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹" },
+            { number: 82, symbol: "Pb", nameEn: "Lead", nameHi: "लेड / सीसा", atomicMass: "207.2", category: "Post-transition Metal", group: 14, period: 6, uses: "बैटरी, शील्डिंग, पुराने पेंट में। / Used in batteries, shielding, old paints.", config: "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²" },
+            { number: 83, symbol: "Bi", nameEn: "Bismuth", nameHi: "बिस्मथ", atomicMass: "208.98", category: "Post-transition Metal", group: 15, period: 6, uses: "पेप्टो-बिस्मॉल, फायर स्प्रिंकलर, कॉस्मेटिक्स में। / Used in Pepto-Bismol, fire sprinklers, cosmetics.", config: "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³" },
+            { number: 84, symbol: "Po", nameEn: "Polonium", nameHi: "पोलोनियम", atomicMass: "209", category: "Post-transition Metal", group: 16, period: 6, uses: "एंटी-स्टैटिक ब्रश, न्यूक्लियर में। / Used in anti-static brushes, nuclear.", config: "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴" },
+            { number: 85, symbol: "At", nameEn: "Astatine", nameHi: "एस्टेटाइन", atomicMass: "210", category: "Halogen", group: 17, period: 6, uses: "कैंसर उपचार (रेडियोएक्टिव)। / Used in cancer treatment (radioactive).", config: "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵" },
+            { number: 86, symbol: "Rn", nameEn: "Radon", nameHi: "रेडॉन", atomicMass: "222", category: "Noble Gas", group: 18, period: 6, uses: "कैंसर थेरेपी, रिसर्च में। / Used in cancer therapy, research.", config: "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶" },
+            { number: 87, symbol: "Fr", nameEn: "Francium", nameHi: "फ्रांसियम", atomicMass: "223", category: "Alkali Metal", group: 1, period: 7, uses: "रेडियोएक्टिव रिसर्च (बहुत दुर्लभ)। / Used in radioactive research (very rare).", config: "[Rn] 7s¹" },
+            { number: 88, symbol: "Ra", nameEn: "Radium", nameHi: "रेडियम", atomicMass: "226", category: "Alkaline Earth Metal", group: 2, period: 7, uses: "पुरानी घड़ी डायल, कैंसर थेरेपी में। / Used in old watch dials, cancer therapy.", config: "[Rn] 7s²" },
+            { number: 89, symbol: "Ac", nameEn: "Actinium", nameHi: "एक्टिनियम", atomicMass: "227", category: "Actinide", group: 3, period: 7, uses: "न्यूट्रॉन सोर्स, रिसर्च में। / Used in neutron sources, research.", config: "[Rn] 6d¹ 7s²" },
+            { number: 90, symbol: "Th", nameEn: "Thorium", nameHi: "थोरियम", atomicMass: "232.04", category: "Actinide", group: 3, period: 7, uses: "न्यूक्लियर फ्यूल, गैस मैन्टल में। / Used in nuclear fuel, gas mantles.", config: "[Rn] 6d² 7s²" },
+            { number: 91, symbol: "Pa", nameEn: "Protactinium", nameHi: "प्रोटैक्टिनियम", atomicMass: "231.04", category: "Actinide", group: 3, period: 7, uses: "न्यूक्लियर रिसर्च। / Used in nuclear research.", config: "[Rn] 5f² 6d¹ 7s²" },
+            { number: 92, symbol: "U", nameEn: "Uranium", nameHi: "यूरेनियम", atomicMass: "238.03", category: "Actinide", group: 3, period: 7, uses: "न्यूक्लियर पावर, हथियार में। / Used in nuclear power, weapons.", config: "[Rn] 5f³ 6d¹ 7s²" },
+            { number: 93, symbol: "Np", nameEn: "Neptunium", nameHi: "नेप्ट्यूनियम", atomicMass: "237", category: "Actinide", group: 3, period: 7, uses: "न्यूक्लियर रिसर्च। / Used in nuclear research.", config: "[Rn] 5f⁴ 6d¹ 7s²" },
+            { number: 94, symbol: "Pu", nameEn: "Plutonium", nameHi: "प्लूटोनियम", atomicMass: "244", category: "Actinide", group: 3, period: 7, uses: "न्यूक्लियर बम, पावर प्लांट में। / Used in nuclear bombs, power plants.", config: "[Rn] 5f⁶ 7s²" },
+            { number: 95, symbol: "Am", nameEn: "Americium", nameHi: "अमेरिसियम", atomicMass: "243", category: "Actinide", group: 3, period: 7, uses: "स्मोक डिटेक्टर, रिसर्च में। / Used in smoke detectors, research.", config: "[Rn] 5f⁷ 7s²" },
+            { number: 96, symbol: "Cm", nameEn: "Curium", nameHi: "क्यूरियम", atomicMass: "247", category: "Actinide", group: 3, period: 7, uses: "रेडियोआइसोटोप बैटरी। / Used in radioisotope batteries.", config: "[Rn] 5f⁷ 6d¹ 7s²" },
+            { number: 97, symbol: "Bk", nameEn: "Berkelium", nameHi: "बर्केलियम", atomicMass: "247", category: "Actinide", group: 3, period: 7, uses: "वैज्ञानिक रिसर्च। / Used in scientific research.", config: "[Rn] 5f⁹ 7s²" },
+            { number: 98, symbol: "Cf", nameEn: "Californium", nameHi: "कैलिफोर्नियम", atomicMass: "251", category: "Actinide", group: 3, period: 7, uses: "न्यूट्रॉन सोर्स, कैंसर थेरेपी में। / Used in neutron sources, cancer therapy.", config: "[Rn] 5f¹⁰ 7s²" },
+            { number: 99, symbol: "Es", nameEn: "Einsteinium", nameHi: "आइंस्टीनियम", atomicMass: "252", category: "Actinide", group: 3, period: 7, uses: "वैज्ञानिक रिसर्च। / Used in scientific research.", config: "[Rn] 5f¹¹ 7s²" },
+            { number: 100, symbol: "Fm", nameEn: "Fermium", nameHi: "फर्मियम", atomicMass: "257", category: "Actinide", group: 3, period: 7, uses: "वैज्ञानिक रिसर्च। / Used in scientific research.", config: "[Rn] 5f¹² 7s²" },
+            { number: 101, symbol: "Md", nameEn: "Mendelevium", nameHi: "मेंडेलीवियम", atomicMass: "258", category: "Actinide", group: 3, period: 7, uses: "वैज्ञानिक रिसर्च। / Used in scientific research.", config: "[Rn] 5f¹³ 7s²" },
+            { number: 102, symbol: "No", nameEn: "Nobelium", nameHi: "नोबेलियम", atomicMass: "259", category: "Actinide", group: 3, period: 7, uses: "वैज्ञानिक रिसर्च। / Used in scientific research.", config: "[Rn] 5f¹⁴ 7s²" },
+            { number: 103, symbol: "Lr", nameEn: "Lawrencium", nameHi: "लॉरेंसियम", atomicMass: "266", category: "Actinide", group: 3, period: 7, uses: "वैज्ञानिक रिसर्च। / Used in scientific research.", config: "[Rn] 5f¹⁴ 7s² 7p¹" },
+            { number: 104, symbol: "Rf", nameEn: "Rutherfordium", nameHi: "रदरफोर्डियम", atomicMass: "267", category: "Transition Metal", group: 4, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d² 7s²" },
+            { number: 105, symbol: "Db", nameEn: "Dubnium", nameHi: "डुब्नियम", atomicMass: "268", category: "Transition Metal", group: 5, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d³ 7s²" },
+            { number: 106, symbol: "Sg", nameEn: "Seaborgium", nameHi: "सीबोर्गियम", atomicMass: "269", category: "Transition Metal", group: 6, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d⁴ 7s²" },
+            { number: 107, symbol: "Bh", nameEn: "Bohrium", nameHi: "बोह्रियम", atomicMass: "270", category: "Transition Metal", group: 7, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d⁵ 7s²" },
+            { number: 108, symbol: "Hs", nameEn: "Hassium", nameHi: "हैसियम", atomicMass: "270", category: "Transition Metal", group: 8, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d⁶ 7s²" },
+            { number: 109, symbol: "Mt", nameEn: "Meitnerium", nameHi: "माइटनेरियम", atomicMass: "278", category: "Transition Metal", group: 9, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d⁷ 7s²" },
+            { number: 110, symbol: "Ds", nameEn: "Darmstadtium", nameHi: "डार्मस्टेडियम", atomicMass: "281", category: "Transition Metal", group: 10, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d⁸ 7s²" },
+            { number: 111, symbol: "Rg", nameEn: "Roentgenium", nameHi: "रॉंटजेनियम", atomicMass: "282", category: "Transition Metal", group: 11, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d⁹ 7s²" },
+            { number: 112, symbol: "Cn", nameEn: "Copernicium", nameHi: "कोपरनिसियम", atomicMass: "285", category: "Transition Metal", group: 12, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d¹⁰ 7s²" },
+            { number: 113, symbol: "Nh", nameEn: "Nihonium", nameHi: "निहोनियम", atomicMass: "286", category: "Post-transition Metal", group: 13, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹" },
+            { number: 114, symbol: "Fl", nameEn: "Flerovium", nameHi: "फ्लेरोवियम", atomicMass: "289", category: "Post-transition Metal", group: 14, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p²" },
+            { number: 115, symbol: "Mc", nameEn: "Moscovium", nameHi: "मॉस्कोवियम", atomicMass: "290", category: "Post-transition Metal", group: 15, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³" },
+            { number: 116, symbol: "Lv", nameEn: "Livermorium", nameHi: "लिवरमोरियम", atomicMass: "293", category: "Post-transition Metal", group: 16, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴" },
+            { number: 117, symbol: "Ts", nameEn: "Tennessine", nameHi: "टेनेसीन", atomicMass: "294", category: "Halogen", group: 17, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵" },
+            { number: 118, symbol: "Og", nameEn: "Oganesson", nameHi: "ओगानेसन", atomicMass: "294", category: "Noble Gas", group: 18, period: 7, uses: "वैज्ञानिक अनुसंधान। / Used in scientific research.", config: "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶" }
+        ];
+
+        // ==================== CATEGORY COLOR FUNCTION ====================
+        function getCategoryColor(category) {
+            const colors = {
+                "Nonmetal": "bg-emerald-600 text-white",
+                "Noble Gas": "bg-purple-600 text-white",
+                "Halogen": "bg-orange-600 text-white",
+                "Alkali Metal": "bg-red-600 text-white",
+                "Alkaline Earth Metal": "bg-amber-500 text-white",
+                "Transition Metal": "bg-blue-600 text-white",
+                "Metalloid": "bg-teal-600 text-white",
+                "Post-transition Metal": "bg-cyan-600 text-white",
+                "Lanthanide": "bg-pink-600 text-white",
+                "Actinide": "bg-violet-600 text-white"
+            };
+            return colors[category] || "bg-gray-600 text-white";
+        }
+
+        // ==================== RENDER CARDS ====================
+        function renderElements(filtered) {
+            const container = document.getElementById('elementsContainer');
+            container.innerHTML = '';
+
+            filtered.forEach(el => {
+                const cardHTML = `
+                    <div onclick="showModal(${el.number})" 
+                         class="element-card cursor-pointer bg-zinc-900 border border-zinc-700 rounded-3xl p-6 flex flex-col gap-4 items-center text-center hover:bg-zinc-800">
+                        <div class="w-24 h-24 flex-shrink-0 bg-zinc-800 rounded-2xl overflow-hidden border border-zinc-600 flex items-center justify-center">
+                            <img 
+                                src="https://picsum.photos/seed/${el.symbol}/200/200" 
+                                alt="${el.nameEn}"
+                                class="w-20 h-20 object-contain transition-transform hover:scale-110">
+                        </div>
+                        <div>
+                            <div class="text-5xl font-bold font-mono text-blue-400">${el.number}</div>
+                            <div class="text-4xl font-bold text-white">${el.symbol}</div>
+                            <h2 class="text-2xl font-semibold text-white mt-2">${el.nameHi}</h2>
+                            <p class="text-lg text-slate-400">(${el.nameEn})</p>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        // ==================== MODAL FUNCTIONS ====================
+        function showModal(number) {
+            const element = elementsData.find(e => e.number === number);
+            if (!element) return;
+
+            const content = document.getElementById('modalContent');
+            const catColor = getCategoryColor(element.category);
+
+            content.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <!-- Image -->
+                    <div class="flex flex-col items-center">
+                        <img src="https://picsum.photos/seed/${element.symbol}/620/460" 
+                             alt="${element.nameEn}" 
+                             class="rounded-3xl shadow-2xl w-full max-h-96 object-cover">
+                        <p class="text-xs text-slate-500 mt-3">प्रतिनिधि तस्वीर • ${element.nameHi} (${element.nameEn})</p>
+                    </div>
+
+                    <!-- Details -->
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-6">
+                            <div class="text-[120px] leading-none font-bold text-blue-400 font-mono">${element.number}</div>
+                            <div>
+                                <div class="text-8xl font-bold">${element.symbol}</div>
+                                <div class="text-5xl font-semibold text-white">${element.nameHi}</div>
+                                <div class="text-3xl text-slate-400">(${element.nameEn})</div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="bg-zinc-800 rounded-2xl p-5 text-center">
+                                <div class="text-xs text-slate-400">द्रव्यमान</div>
+                                <div class="text-3xl font-mono">${element.atomicMass} u</div>
+                            </div>
+                            <div class="bg-zinc-800 rounded-2xl p-5 text-center">
+                                <div class="text-xs text-slate-400">ग्रुप</div>
+                                <div class="text-3xl font-semibold">${element.group}</div>
+                            </div>
+                            <div class="bg-zinc-800 rounded-2xl p-5 text-center">
+                                <div class="text-xs text-slate-400">पीरियड</div>
+                                <div class="text-3xl font-semibold">${element.period}</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="text-xs text-slate-400 mb-2">श्रेणी</div>
+                            <span class="px-7 py-2.5 rounded-3xl text-sm font-medium ${catColor}">
+                                ${element.category}
+                            </span>
+                        </div>
+
+                        <div>
+                            <div class="text-xs text-slate-400 mb-3">उपयोग एवं उदाहरण</div>
+                            <p class="text-lg leading-relaxed text-slate-300">${element.uses}</p>
+                        </div>
+
+                        <div>
+                            <div class="text-xs text-slate-400 mb-3">इलेक्ट्रॉन विन्यास</div>
+                            <div class="bg-zinc-800 px-6 py-4 rounded-2xl font-mono text-xl">
+                                ${element.config}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('modal').classList.remove('hidden');
+            document.getElementById('modal').classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // ==================== SEARCH FUNCTIONALITY ====================
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('input', () => {
+                const term = searchInput.value.toLowerCase().trim();
+                
+                const filtered = elementsData.filter(el => 
+                    el.nameEn.toLowerCase().includes(term) ||
+                    el.nameHi.toLowerCase().includes(term) ||
+                    el.symbol.toLowerCase().includes(term) ||
+                    el.number.toString().includes(term)
+                );
+                
+                renderElements(filtered);
+            });
+        }
+
+        // ==================== INITIAL LOAD ====================
+        window.onload = function() {
+            renderElements(elementsData);
+            setupSearch();
+
+            // Close modal on ESC key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === "Escape") closeModal();
+            });
+        };
+    </script>
+</body>
+</html>
