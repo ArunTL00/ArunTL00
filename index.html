@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARUN TL WEB - 118 तत्व</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#eef2f3;
+}
+
+header{
+    background:linear-gradient(45deg,#141e30,#243b55);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+header h1{
+    margin:0;
+    font-size:40px;
+}
+
+.intro{
+    padding:15px;
+    text-align:center;
+    background:white;
+}
+
+.container{
+    width:95%;
+    margin:auto;
+    display:grid;
+    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+    gap:10px;
+    margin-top:20px;
+}
+
+.card{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    text-align:center;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:scale(1.05);
+    background:#dff6ff;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+}
+
+.modal-content{
+    background:white;
+    width:80%;
+    margin:5% auto;
+    padding:20px;
+    border-radius:10px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:15px;
+    top:10px;
+    font-size:25px;
+    cursor:pointer;
+    color:red;
+}
+
+.modal img{
+    width:150px;
+    display:block;
+    margin:auto;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>ARUN TL WEB</h1>
+    <p>118 रासायनिक तत्वों की सम्पूर्ण जानकारी</p>
+</header>
+
+<div class="intro">
+यह वेबसाइट 118 सभी तत्वों की जानकारी देती है।
+किसी भी तत्व पर क्लिक करें और उसकी पूरी जानकारी देखें।
+</div>
+
+<div class="container" id="elementList"></div>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">×</span>
+        <div id="modalData"></div>
+    </div>
+</div>
+
+<script>
+
+const elements = [
+{num:1,name:"Hydrogen",symbol:"H",type:"Non-metal",weight:"1.008",discovered:"1766 - Henry Cavendish",use:"Rocket fuel, water formation"},
+{num:2,name:"Helium",symbol:"He",type:"Noble Gas",weight:"4.0026",discovered:"1868 - Pierre Janssen",use:"Balloons, cooling superconductors"},
+{num:3,name:"Lithium",symbol:"Li",type:"Alkali Metal",weight:"6.94",discovered:"1817 - Arfvedson",use:"Batteries"},
+{num:6,name:"Carbon",symbol:"C",type:"Non-metal",weight:"12.011",discovered:"Ancient",use:"Diamond, Coal, Graphite"},
+{num:7,name:"Nitrogen",symbol:"N",type:"Non-metal",weight:"14.007",discovered:"1772 - Rutherford",use:"Fertilizers"},
+{num:8,name:"Oxygen",symbol:"O",type:"Non-metal",weight:"15.999",discovered:"1774 - Priestley",use:"Breathing, Medical use"},
+{num:11,name:"Sodium",symbol:"Na",type:"Alkali Metal",weight:"22.990",discovered:"1807 - Davy",use:"Salt formation"},
+{num:26,name:"Iron",symbol:"Fe",type:"Metal",weight:"55.845",discovered:"Ancient",use:"Construction"},
+{num:79,name:"Gold",symbol:"Au",type:"Metal",weight:"196.967",discovered:"Ancient",use:"Jewelry"},
+{num:118,name:"Oganesson",symbol:"Og",type:"Noble Gas",weight:"294",discovered:"2002",use:"Scientific research"}
+];
+
+const container = document.getElementById("elementList");
+
+elements.forEach(el=>{
+    container.innerHTML += `
+        <div class="card" onclick="showDetails('${el.name}')">
+            <h3>${el.num}. ${el.name}</h3>
+            <p>${el.symbol}</p>
+        </div>
+    `;
+});
+
+function showDetails(name){
+    const el = elements.find(e=>e.name===name);
+
+    document.getElementById("modalData").innerHTML = `
+        <h2>${el.name} (${el.symbol})</h2>
+        <img src="https://en.wikipedia.org/api/rest_v1/page/summary/${el.name}" 
+             onerror="this.src='https://via.placeholder.com/150?text=${el.symbol}'">
+        <p><b>Atomic Number:</b> ${el.num}</p>
+        <p><b>Atomic Weight:</b> ${el.weight}</p>
+        <p><b>Type:</b> ${el.type}</p>
+        <p><b>Discovered:</b> ${el.discovered}</p>
+        <p><b>Example / Use:</b> ${el.use}</p>
+    `;
+
+    document.getElementById("modal").style.display="block";
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display="none";
+}
+
+</script>
+
+</body>
+</html>
